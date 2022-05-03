@@ -6,6 +6,7 @@ use App\Repository\ListTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ListTypeRepository::class)]
 #[ORM\Table(name: 'ms_list_type')]
@@ -14,9 +15,11 @@ class ListType
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', name: 'lt_id')]
+    #[Groups(['user_list'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, name: 'lt_name')]
+    #[Groups(['user_list'])]
     private $name;
 
     #[ORM\Column(type: 'string', length: 255, name: 'lt_list_key')]

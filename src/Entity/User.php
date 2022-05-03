@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -44,6 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $signupDate;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserList::class)]
+    #[Groups(['user_list'])]
     private $userLists;
 
     #[Assert\Length(

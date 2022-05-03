@@ -6,6 +6,7 @@ use App\Repository\TypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 #[ORM\Table(name: 'ms_type')]
@@ -14,9 +15,11 @@ class Type
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', name: 'ty_id')]
+    #[Groups(['get_anime'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, name: 'ty_name')]
+    #[Groups(['get_anime'])]
     private $name;
 
     #[ORM\OneToMany(mappedBy: 'type', targetEntity: Anime::class)]

@@ -6,6 +6,8 @@ use App\Repository\AnimeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: AnimeRepository::class)]
 #[ORM\Table(name: 'ms_anime')]
@@ -14,73 +16,93 @@ class Anime
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', name: 'a_id')]
+    #[Groups(['get_anime'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, name: 'a_title')]
+    #[Groups(['get_anime'])]
     private $title;
 
     #[ORM\Column(type: 'integer', nullable: true, name: 'a_episodes')]
+    #[Groups(['get_anime'])]
     private $episodes;
 
     #[ORM\Column(type: 'smallint', name: 'a_airing')]
+    #[Groups(['get_anime'])]
     private $airing;
 
     #[ORM\Column(type: 'string', length: 255, name: 'a_status')]
+    #[Groups(['get_anime'])]
     private $status;
 
     #[ORM\Column(type: 'date', nullable: true, name: 'a_aired_from')]
+    #[Groups(['get_anime'])]
     private $airedFrom;
 
     #[ORM\Column(type: 'date', nullable: true, name: 'a_aired_to')]
+    #[Groups(['get_anime'])]
     private $airedTo;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true, name: 'a_aired')]
+    #[Groups(['get_anime'])]
     private $aired;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true, name: 'a_duration')]
+    #[Groups(['get_anime'])]
     private $duration;
 
     #[ORM\Column(type: 'float', nullable: true, name: 'a_score')]
+    #[Groups(['get_anime'])]
     private $score;
 
     #[ORM\Column(type: 'integer', nullable: true, name: 'a_scored_by')]
+    #[Groups(['get_anime'])]
     private $scoredBy;
 
     #[ORM\Column(type: 'integer', nullable: true, name: 'a_rank')]
+    #[Groups(['get_anime'])]
     private $rank;
 
     #[ORM\Column(type: 'text', nullable: true, name: 'a_synopsis')]
+    #[Groups(['get_anime'])]
     private $synopsis;
 
     #[ORM\Column(type: 'string', length: 11, nullable: true, name: 'a_premiered')]
+    #[Groups(['get_anime'])]
     private $premiered;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true, name: 'a_cover')]
     private $cover;
 
     #[ORM\Column(type: 'integer', nullable: true, name: 'a_members')]
+    #[Groups(['get_anime'])]
     private $members;
 
     #[ORM\ManyToOne(targetEntity: Type::class, inversedBy: 'animes')]
     #[ORM\JoinColumn(nullable: false, name: 'a_type_id', referencedColumnName: 'ty_id')]
+    #[Groups(['get_anime'])]
     private $type;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'animes')]
     #[ORM\JoinTable(name: 'ms_anime_genre')]
     #[ORM\JoinColumn(name: 'ag_anime_id', referencedColumnName: 'a_id')]
     #[ORM\InverseJoinColumn(name: 'ag_genre_id', referencedColumnName: 'g_id')]
+    #[Groups(['get_anime'])]
     private $genres;
 
     #[ORM\ManyToMany(targetEntity: self::class, inversedBy: 'sequels')]
     #[ORM\JoinTable(name: 'ms_anime_relation')]
     #[ORM\JoinColumn(name: 'ar_sequel_id', referencedColumnName: 'a_id')]
     #[ORM\InverseJoinColumn(name: 'ar_prequel_id', referencedColumnName: 'a_id')]
+    //#[Groups(['get_anime'])]
     private $prequels;
 
     #[ORM\ManyToMany(targetEntity: self::class, mappedBy: 'prequels')]
+    //#[Groups(['get_anime'])]
     private $sequels;
 
     #[ORM\OneToMany(mappedBy: 'anime', targetEntity: Theme::class)]
+    #[Groups(['get_anime'])]
     private $themes;
 
     #[ORM\OneToMany(mappedBy: 'anime', targetEntity: UserList::class)]

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserListRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserListRepository::class)]
 #[ORM\Table(name: 'ms_user_list')]
@@ -17,26 +18,33 @@ class UserList
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: Anime::class, inversedBy: 'userLists')]
     #[ORM\JoinColumn(nullable: false, name: 'ul_anime_id', referencedColumnName: 'a_id')]
+    #[Groups(['user_list'])]
     private $anime;
 
     #[ORM\ManyToOne(targetEntity: ListType::class, inversedBy: 'userLists')]
     #[ORM\JoinColumn(nullable: false, name: 'ul_list_type_id', referencedColumnName: 'lt_id')]
+    #[Groups(['user_list'])]
     private $listType;
 
     #[ORM\Column(type: 'integer', name: 'ul_score')]
+    #[Groups(['user_list'])]
     private $score;
 
     #[ORM\Column(type: 'text', nullable: true, name: 'ul_comment')]
+    #[Groups(['user_list'])]
     private $comment;
 
     #[ORM\Column(type: 'datetime', name: 'ul_modification_date')]
+    #[Groups(['user_list'])]
     private $modificationDate;
 
     #[ORM\ManyToOne(targetEntity: Priority::class, inversedBy: 'userLists')]
     #[ORM\JoinColumn(nullable: false, name: 'ul_priority_id', referencedColumnName: 'p_id')]
+    #[Groups(['user_list'])]
     private $priority;
 
     #[ORM\Column(type: 'integer', name: 'ul_progress_episodes')]
+    #[Groups(['user_list'])]
     private $progressEpisodes;
 
     public function getUser(): ?User

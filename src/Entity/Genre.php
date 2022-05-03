@@ -6,6 +6,7 @@ use App\Repository\GenreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GenreRepository::class)]
 #[ORM\Table(name: 'ms_genre')]
@@ -14,9 +15,11 @@ class Genre
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer', name: 'g_id')]
+    #[Groups(['get_anime'])]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255, name: 'g_name')]
+    #[Groups(['get_anime'])]
     private $name;
 
     #[ORM\ManyToMany(targetEntity: Anime::class, mappedBy: 'genres')]
